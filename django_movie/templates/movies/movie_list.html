@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <!-- //Meta tag Keywords -->
+    <title>Django Movie List Project</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- //Meta tag Keywords -->
+    <!-- Custom-Files -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <!-- Bootstrap-Core-CSS -->
+    <!--/ Style-CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all">
+    <!--// Style-CSS -->
+    <!-- font-awesome-icons -->
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+    <!-- //font-awesome-icons -->
+  <!-- /Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900" rel="stylesheet">
+    <!-- //Fonts -->
+</head>
+
+<body>
+
+    <div id="page" class="page"><!-- main-content -->
+        <div class="main-banner bg bg1" id="home" style="background-color: rgba(0, 0, 0, 0); margin-top: 0px; background-image: url(&quot;https://free4kwallpapers.com/uploads/originals/2019/11/20/bladerunner--movie-scene-wallpaper.jpg&quot;);">
+            <!-- header -->
+            <header class="header">
+                <div class="container-fluid px-lg-5">
+                    <!-- nav -->
+                    <nav class="py-4">
+                        <div id="logo">
+                            <h1> <a href="{% url 'home' %}" class="editContent" style="outline: none; outline-offset: -2px; cursor: inherit; color: rgb(255, 255, 255); font-size: 40px; background-color: rgba(0, 0, 0, 0); font-family: &quot;Source Sans Pro&quot;, sans-serif;">CHMovie List</a></h1>
+                        </div>
+
+                        <label for="drop" class="toggle">Menu</label>
+                        <input type="checkbox" id="drop">
+                        <ul class="menu mt-2">
+                            <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                            <li>
+                                <!-- First Tier Drop Down -->
+                                <label for="drop-2" class="toggle">Categories <span class="fa fa-angle-down" aria-hidden="true" ></span> </label>
+                                <a href="#">Categories <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                                <input type="checkbox" id="drop-2">
+                                <ul>
+                                    <li><a href="">Movies</a></li>
+                                    <li><a href="">Series</a></li>
+                                    <li><a href="">Cartoons</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                {% if request.user.is_authenticated %}
+                                <label for="drop-3" class="toggle">{{request.user}} <span class="fa fa-angle-down" aria-hidden="true" ></span> </label>
+                                <a href="#">{{request.user}} <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                                <input type="checkbox" id="drop-3">
+                                <ul>
+                                    <li><a href="">Favorites</a></li>
+                                    
+                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                </ul>
+                                {% else %}
+                                <a href="{% url 'login' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Login</a>
+                                {% endif %}
+                                <!-- {% if request.user.is_authenticated %} -->
+                                <!-- <label for="drop-2" class="toggle"><p>{{request.user}}</p> <span class="fa fa-angle-down" aria-hidden="true" ></span> </label> -->
+                                <!-- <p>{{request.user}}</p> -->
+                                <!-- <a href="contact.html" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Logout</a> -->
+                                <!-- {% else %} -->
+                                <!-- <a href="contact.html" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Login</a> -->
+                                <!-- {% endif %} -->
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- //nav -->
+                </div>
+            </header>
+            <!-- //header -->
+            <!--/banner-->
+            <div class="banner-info">
+                <p class="editContent" >Đồ án phát triển ứng dụng</p>
+                <h3 class="mb-4 editContent">WELCOME TO YOUR MOVIE LIST</h3>
+                <div class="ban-buttons">
+
+
+                </div>
+            </div>
+            <!--// banner-inner -->
+
+        </div>
+        <!--//main-content-->
+        <!---->
+        <ol class="breadcrumb editContent">
+            <li class="breadcrumb-item">
+                <a href="{% url 'home' %}" class="editContent">Home</a>
+            </li>
+            <li class="breadcrumb-item active editContent">Single Page</li>
+        </ol>
+        <!---->
+        <!-- banner -->
+        <section class="ab-info-main py-md-5 py-4 editContent" style="padding-left: 3rem; padding-right: 3rem;">
+            <div class="container-fluid py-md-3">
+                <div class="row">
+                    <div class="side-bar col-lg-3">
+
+                        <div class="search-bar w3layouts-newsletter">
+                            <h3 class="sear-head editContent" >FILM SEARCH</h3>
+                            <form method="GET" action="{% url 'search_movies' %}" class="d-flex editContent">
+                                <input type="search" placeholder="Nhập tên phim, tên diễn viên.." name="query" class="form-control" required="">
+                                <button class="btn1 btn"><span class="fa fa-search" aria-hidden="true"></span></button>
+                            </form>
+                        </div>
+                        <!--preference -->
+                        <div class="left-side my-4">
+                            <h3 class="sear-head editContent" >GENRES</h3>
+                            <ul class="w3layouts-box-list">
+                                <li class="editContent" >
+                                    <input type="checkbox" class="checked">
+                                    <span class="span editContent" >Action</span>
+                                </li>
+                                    <li class="editContent" >
+                                    <input type="checkbox" class="checked">
+                                    <span class="span editContent" >Militaries</span>
+                                </li>
+                                <li class="editContent" >
+                                    <input type="checkbox" class="checked">
+                                    <span class="span editContent" >Comedy</span>
+                                </li>
+                                <li class="editContent" >
+                                    <input type="checkbox" class="checked">
+                                    <span class="span editContent" >Horror</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- // preference -->
+                        <!-- discounts -->
+                        <div class="left-side">
+                            <h3 class="sear-head editContent" >YEAR</h3>
+                            <ul class="w3layouts-box-list">
+                                <li class="editContent" >
+                                    <input type="checkbox" class="checked">
+                                    <span class="span editContent" >2020</span>
+                                </li>
+                                <li class="editContent" >
+                                    <input type="checkbox" class="checked">
+                                    <span class="span editContent" >2019</span>
+                                </li>
+                                <li class="editContent" >
+                                    <input type="checkbox" class="checked">
+                                    <span class="span editContent" >2018</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox" class="checked">
+                                    <span class="span editContent" >2017</span>
+                                </li>
+                                <li class="editContent" >
+                                    <input type="checkbox" class="checked">
+                                    <span class="span editContent" >2016</span>
+                                </li>
+                                <li class="editContent" >
+                                    <input type="checkbox" class="checked">
+                                    <span class="span editContent" >2015</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- //discounts -->
+                        <!-- reviews -->
+                        <div class="deal-leftmk left-side">
+                            <h3 class="sear-head editContent">TOP RATED</h3>
+                            <div class="special-sec1 row mt-3 editContent">
+                                <div class="img-deals col-md-4">
+                                    <a href="https://www.imdb.com/title/tt0068646/" class="editContent" >
+                                        <img src="https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg" class="img-fluid" alt="">
+                                    </a>
+                                </div>
+                                <div class="img-deal1 col-md-4">                                    
+                                    <a href="https://www.imdb.com/title/tt0068646/" class="editContent" >
+                                        <h3 class="editContent">The Godfather </h3>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="special-sec1 row mt-3 editContent" >
+                                <div class="img-deals col-md-4">
+                                    <a href="https://www.imdb.com/title/tt0071562/" class="editContent" >
+                                        <img src="https://m.media-amazon.com/images/M/MV5BMWMwMGQzZTItY2JlNC00OWZiLWIyMDctNDk2ZDQ2YjRjMWQ0XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg" class="img-fluid" alt="" >
+                                    </a>
+                                </div>
+                                <div class="img-deal1 col-md-4">                                    
+                                    <a href="https://www.imdb.com/title/tt0071562/" class="editContent" >
+                                        <h3 class="editContent" >The Godfather Part II</h3>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="special-sec1 row mt-3 editContent" >
+                                <div class="img-deals col-md-4">
+                                    <a href="https://www.imdb.com/title/tt1856101/" class="editContent" >
+                                        <img src="https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_.jpg" class="img-fluid" alt="" >
+                                    </a>
+                                </div>
+                                <div class="img-deal1 col-md-8">                                    
+                                    <a href="https://www.imdb.com/title/tt1856101/" class="editContent" >
+                                        <h3 class="editContent" >Blade Runner 2049</h3>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="special-sec1 row mt-3 editContent" >
+                                <div class="img-deals col-md-4">
+                                    <a href="https://www.imdb.com/title/tt0111161/" class="editContent" >
+                                        <img src="https://www.themoviedb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg" class="img-fluid" alt="" >
+                                    </a>
+                                </div>
+                                <div class="img-deal1 col-md-8">
+                                    <a href="https://www.imdb.com/title/tt0111161/" class="editContent" >
+                                        <h3 class="editContent" >The Shawshank Redemption</h3>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="special-sec1 row mt-3 editContent" >
+                                <div class="img-deals col-md-4">
+                                    <a href="https://www.imdb.com/title/tt1375666/" class="editContent" >
+                                        <img src="https://www.themoviedb.org/t/p/original/xlaY2zyzMfkhk0HSC5VUwzoZPU1.jpg" class="img-fluid" alt="" >
+                                    </a>
+                                </div>
+                                <div class="img-deal1 col-md-8">
+                                    <a href="https://www.imdb.com/title/tt1375666/" class="editContent" >
+                                        <h3 class="editContent" >Inception</h3>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- //reviews -->
+                        <!-- deals -->
+                        <div class="deal-leftmk left-side">
+                            <h3 class="sear-head editContent">LAST ADDED</h3>
+                            <div class="special-sec1 row mt-3 editContent">
+                                <div class="img-deals col-md-4">
+                                    <a href="https://www.imdb.com/title/tt10366206/" class="editContent" >
+                                        <img src="https://m.media-amazon.com/images/M/MV5BOTI1MDA5OTEtNWExMi00NGYwLThmMjUtMDhmNDQ4YTg1NzZlXkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_FMjpg_UX1000_.jpg" class="img-fluid" alt="">
+                                    </a>
+                                </div>
+                                <div class="img-deal1 col-md-4">                                    
+                                    <a href="https://www.imdb.com/title/tt10366206/" class="editContent" >
+                                        <h3 class="editContent">John Wick: Chapter 4</h3>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="special-sec1 row mt-3 editContent" >
+                                <div class="img-deals col-md-4">
+                                    <a href="https://www.imdb.com/title/tt6791350/" class="editContent" >
+                                        <img src="https://m.media-amazon.com/images/M/MV5BMDgxOTdjMzYtZGQxMS00ZTAzLWI4Y2UtMTQzN2VlYjYyZWRiXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg" class="img-fluid" alt="" >
+                                    </a>
+                                </div>
+                                <div class="img-deal1 col-md-4">                                    
+                                    <a href="https://www.imdb.com/title/tt6791350/" class="editContent" >
+                                        <h3 class="editContent" >GUARDIANS OF THE GALAXY VOL. 3</h3>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="special-sec1 row mt-3 editContent" >
+                                <div class="img-deals col-md-4">
+                                    <a href="https://www.imdb.com/title/tt15398776/" class="editContent" >
+                                        <img src="https://m.media-amazon.com/images/M/MV5BMDEzNDdjYTctNjA4ZS00ZDgzLTkxNmUtMTQwMzUyMmFhMWRhXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_.jpg" class="img-fluid" alt="" >
+                                    </a>
+                                </div>
+                                <div class="img-deal1 col-md-8">                                    
+                                    <a href="https://www.imdb.com/title/tt15398776/" class="editContent" >
+                                        <h3 class="editContent" >Oppenheimer</h3>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="special-sec1 row mt-3 editContent" >
+                                <div class="img-deals col-md-4">
+                                    <a href="https://www.imdb.com/title/tt11145118/" class="editContent" >
+                                        <img src="https://m.media-amazon.com/images/M/MV5BYWY1ZDY4MmQtYjhiYS00N2QwLTk1NzgtOWI2YzUwZThjNDYwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg" class="img-fluid" alt="" >
+                                    </a>
+                                </div>
+                                <div class="img-deal1 col-md-8">
+                                    <a href="https://www.imdb.com/title/tt11145118/" class="editContent" >
+                                        <h3 class="editContent" >Creed III</h3>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="special-sec1 row mt-3 editContent" >
+                                <div class="img-deals col-md-4">
+                                    <a href="https://www.imdb.com/title/tt1517268/" class="editContent" >
+                                        <img src="https://m.media-amazon.com/images/M/MV5BOWIwZGY0OTYtZjUzYy00NzRmLTg5YzgtYWMzNWQ0MmZiY2MwXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_FMjpg_UX1000_.jpg" class="img-fluid" alt="" >
+                                    </a>
+                                </div>
+                                <div class="img-deal1 col-md-8">
+                                    <a href="https://www.imdb.com/title/tt1517268/" class="editContent" >
+                                        <h3 class="editContent" >Barbie</h3>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- //deals -->
+
+                    </div>
+                    <!-- //product left -->
+                    <!-- product right -->
+                    <div class="left-ads-display col-lg-9">
+                        <div class="row">
+                            {% for movie in movie_list %}
+                            <div class="col-md-4 product-men">
+                                <div class="product-shoe-info editContent text-center mt-lg-4" >
+                                    <div class="men-thumb-item">
+                                        <a href="{{ movie.get_absolute_url }}">
+                                            <img src="{{ movie.poster }}" class="img-fluid" alt="" >
+                                        </a>
+                                    </div>
+                                    <div class="item-info-product">
+                                        <h4 class="">
+                                            <a href="{{ movie.get_absolute_url }}" class="editContent">{{ movie.title }}</a>
+                                        </h4>
+
+                                        <div class="product_price">
+                                            <div class="grid-price">
+                                                <span class="money editContent" >{{ movie.tagline }}</span>
+                                            </div>
+                                        </div>
+                                        <ul class="stars">
+                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
+                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
+                                            <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true" ></span></a></li>
+                                            <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true" ></span></a></li>
+                                            <li><a href="#"><span class="fa fa-star-o" aria-hidden="true" ></span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>                            
+                            {% endfor %}                        
+                        </div>
+                        <!--<div class="grid-img-right mt-4 text-right bg bg1" >
+                            <span class="money editContent" >Flat 50% Off</span>
+                            <a href="moviesingle.html" class="btn" >Now</a>
+                        </div>-->
+                        {% if is_paginated %}
+                                <div class="pagination">
+                                    <span class="step-links" style="font-size: 15px; text-align: center; display: inline-block; width: 100%;">
+                                        {% if page_obj.has_previous %}
+                                            <a href="?page=1">&laquo;</a>
+                                            <a href="?page={{ page_obj.previous_page_number }}">&lsaquo; </a>
+                                        {% endif %}
+
+                                        {% for num in paginator.page_range %}
+                                            {% if page_obj.number == num %}
+                                                <span class="current-page">{{ num }}</span>
+                                            {% else %}
+                                                <a href="?page={{ num }}">{{ num }}</a>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if page_obj.has_next %}
+                                            <a href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
+                                            <a href="?page={{ paginator.num_pages }}">&raquo;</a>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- //contact -->
+        <!-- footer -->
+        <footer class="editContent">
+            <div class="container">
+                <div class="row footer-top">
+                    <div class="col-lg-4 footer-grid_section_w3layouts">
+                        <h2 class="logo-2 mb-lg-4 mb-3">
+                            <a href="index.html" class="editContent">
+                                <span class="fa" aria-hidden="true" >
+                                    Django Movie Project
+                                </span>
+                            </a>
+                        </h2>
+                        <p class="editContent" >
+                            Đồ án lập trình trang web quản lý phim của nhóm gồm 2 thành viên là Trần Văn Hùng và Phạm Anh Chiến..
+                        </p>
+                        <h4 class="sub-con-fo ad-info my-4 editContent" >Catch on Social</h4>
+                        <ul class="w3layouts_social_list media-soc list-unstyled">
+                            <li>
+                                <a href="https://www.facebook.com/VanHung17" class="w3pvt_facebook editContent" >
+                                    <span class="fa fa-facebook-f" ></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="w3pvt_twitter editContent" >
+                                    <span class="fa fa-twitter" ></span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    <div class="col-lg-8 footer-right">
+                        <div class="w3layouts-news-letter">
+                            <h3 class="footer-title text-uppercase editContent mb-lg-4 mb-3" >Newsletter</h3>
+
+                            <p class="editContent" >By subscribing to our mailing list you will always get latest news and updates from us.</p>
+                            <form action="#" method="post" class="w3layouts-newsletter">
+                                <input type="email" name="Email" class="editContent" placeholder="Enter your email..." required="" >
+                                <button class="btn1 btn" ><span class="fa fa-paper-plane-o" aria-hidden="true" ></span></button>
+
+                            </form>
+                        </div>
+                        <div class="row mt-lg-4 bottom-w3layouts-sec-nav mx-0">
+                            <div class="col-md-4 footer-grid_section_w3layouts">
+                                <h3 class="footer-title text-uppercase editContent mb-lg-4 mb-3" >Sections</h3>
+                                <ul class="list-unstyled w3layouts-icons">
+                                    <li>
+                                        <a href="{% url 'home' %}" class="editContent" >HOME</a>
+                                    </li>
+                                    <!-- <li>
+                                        <a href="#" class="editContent" >CATEGORIES</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="editContent" >LOGIN</a>
+                                    </li> -->
+                                </ul>
+                            </div>
+                            <div class="col-md-4 footer-grid_section_w3layouts">
+                                <!-- social icons -->   
+                                <div class="agileinfo_social_icons">
+                                    <h3 class="footer-title text-uppercase editContent mb-lg-4 mb-3" >Thành viên</h3>
+                                    <ul class="list-unstyled w3layouts-icons">
+
+                                        <li>
+                                            <a href="#" class="editContent" >Trần Văn Hùng</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="editContent" >Phạm Anh Chiến</a>
+                                        </li>
+                                        <!-- <li>
+                                            <a href="#" class="editContent" >About Us</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="editContent" >About Us</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="editContent" >About Us</a>
+                                        </li> -->
+                                    </ul>
+                                </div>
+                                <!-- social icons -->
+                            </div>
+                            <div class="col-md-4 footer-grid_section_w3layouts my-md-0 my-5">
+                                <h3 class="footer-title text-uppercase text-wh mb-lg-4 mb-3 editContent" >Contact Info</h3>
+                                <div class="contact-info">
+                                    <div class="footer-address-inf my-4">
+                                        <h4 class="ad-info mb-2 editContent" >Email </h4>
+                                        <p class="editContent" ><a href="mailto:info@example.com">tranvanhung7701@gmail.com</a></p>
+                                        <p class="editContent" ><a href="mailto:info@example.com">phamanhchien@gmail.com</a></p>
+                                    </div>
+                                    <div class="footer-address-inf">
+                                        <h4 class="ad-info mb-2 editContent" >Location</h4>
+                                        <p class="editContent" >IUH, HOCHIMINH CITY</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- //footer -->
+        <div class="cpy-right py-3">
+            <div class="container">
+                <div class="row">
+                    <p class="col-md-10 text-left">
+                        <a href="https://www.facebook.com/VanHung17">ME </a>
+                    </p>
+                    <!-- move top icon -->
+                    <a href="#home" class="move-top text-right col-md-2"><span class="fa fa-long-arrow-up" aria-hidden="true" ></span></a>
+                    <!-- //move top icon -->
+                </div>
+            </div>
+        </div></div>
+</body>
+</html>

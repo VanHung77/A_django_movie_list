@@ -1,0 +1,17 @@
+{% extends 'movie_list.html' %}
+
+{% block content %}
+  <h1>Search results for "{{ query }}"</h1>
+
+  {% if movies %}
+    <ul>
+      {% for movie in movies %}
+        <li>
+          <a href="{% url 'movie_detail' slug=movie.url %}">{{ movie.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No movies found</p>
+  {% endif %}
+{% endblock %}

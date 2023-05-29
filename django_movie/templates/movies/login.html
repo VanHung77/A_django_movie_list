@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <!-- Bootstrap-Core-CSS -->
+    <!--/ Style-CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all">
+    <!--// Style-CSS -->
+    <!-- font-awesome-icons -->
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+    <!-- /Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900" rel="stylesheet">
+    <!-- //Fonts -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url("https://images.hdqwalls.com/wallpapers/blade-runner-2049-art-4k-k0.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .transparent-box {
+            background-color: rgba(254, 254, 254, 0.179);
+            padding: 20px;
+            margin-top: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div id="page" class="page"><!-- main-content -->
+        <div class="main-banner bg bg1" id="home" style="background-color: rgba(0, 0, 0, 0); margin-top: 0px; background-image: url(&quot;https://images.hdqwalls.com/wallpapers/blade-runner-2049-art-4k-k0.jpg&quot;);">
+            <!-- header -->
+            <header class="header">
+                <div class="container-fluid px-lg-5">
+                    <!-- nav -->
+                    <nav class="py-4">
+                        <div id="logo">
+                            <h1> <a href="{% url 'home' %}" class="editContent" style="outline: none; outline-offset: -2px; cursor: inherit; color: rgb(255, 255, 255); font-size: 40px; background-color: rgba(0, 0, 0, 0); font-family: &quot;Source Sans Pro&quot;, sans-serif;">CHMovie List</a></h1>
+                        </div>
+
+                        <label for="drop" class="toggle">Menu</label>
+                        <input type="checkbox" id="drop">
+                        <ul class="menu mt-2">
+                            <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                            <li>
+                                <!-- First Tier Drop Down -->
+                                <label for="drop-2" class="toggle">Categories <span class="fa fa-angle-down" aria-hidden="true" ></span> </label>
+                                <a href="#">Categories <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                                <input type="checkbox" id="drop-2">
+                                <ul>
+                                    <li><a href="">Movies</a></li>
+                                    <li><a href="">Series</a></li>
+                                    <li><a href="">Cartoons</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                {% if request.user.is_authenticated %}
+                                <label for="drop-3" class="toggle">{{request.user}} <span class="fa fa-angle-down" aria-hidden="true" ></span> </label>
+                                <a href="#">{{request.user}} <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                                <input type="checkbox" id="drop-3">
+                                <ul>
+                                    <li><a href="">Favorites</a></li>
+                                    
+                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                </ul>
+                                {% else %}
+                                <a href="{% url 'login' %}" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Login</a>
+                                {% endif %}
+                                <!-- {% if request.user.is_authenticated %} -->
+                                <!-- <label for="drop-2" class="toggle"><p>{{request.user}}</p> <span class="fa fa-angle-down" aria-hidden="true" ></span> </label> -->
+                                <!-- <p>{{request.user}}</p> -->
+                                <!-- <a href="contact.html" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Logout</a> -->
+                                <!-- {% else %} -->
+                                <!-- <a href="contact.html" style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Login</a> -->
+                                <!-- {% endif %} -->
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- //nav -->
+                </div>
+            </header>
+            <!-- //header -->
+            <!--/banner-->
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="transparent-box">
+                            <h2>Login</h2>
+                            <form action="" method="post">
+                                <!-- Login form fields -->
+                                <div class="form-group">
+                                    <label for="username">Username:</label>
+                                    <input type="text" class="form-control" id="username" name="username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password:</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Login</button>
+                                <a href="{% url 'register' %}" class="btn btn-secondary">Sign Up</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--// banner-inner -->
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+[
+  {
+    "model": "movies.movie",
+    "pk": 8,
+    "fields": {
+        "title": "Avengers: Endgame",
+        "tagline": "Part of the journey is the end",
+        "description": "After the devastating events of Avengers: Infinity War, the universe is in ruins. The remaining Avengers must assemble once again to undo Thanos' actions and restore order to the universe.",
+        "poster": "https://example.com/poster/avengers-endgame.jpg",
+        "year": 2019,
+        "country": "USA",
+        "directors": [1, 2],
+        "actors": [1, 4, 5],
+        "genres": [1, 2, 3],
+        "world_premiere": "2019-04-22",
+        "budget": 356000000,
+        "fees_in_usa": 858373000,
+        "fees_in_world": 2797800564,
+        "category": 1,
+        "url": "avengers-endgame",
+        "draft": false
+    }
+  },
+  {
+    "model": "movies.movie",
+    "pk": 9,
+    "fields": {
+        "title": "Joker",
+        "tagline": "Put on a happy face",
+        "description": "In Gotham City, mentally-troubled comedian Arthur Fleck embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego",      
+        "poster": "https://example.com/poster/joker.jpg",
+        "year": 2019,
+        "country": "USA",
+        "directors": [3],
+        "actors": [6],
+        "genres": [4],
+        "world_premiere": "2019-08-31",
+        "budget": 55000000,
+        "fees_in_usa": 335451311,
+        "fees_in_world": 1074251311,
+        "category": 1,
+        "url": "joker",
+        "draft": false
+    }
+}
+
+
+
+  
+]
